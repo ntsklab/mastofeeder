@@ -5,27 +5,27 @@ import SQL from "sql-template-strings";
 export const redirectRoute: Route<Response.TemporaryRedirect> = route
   .get("/redirect")
   .handler(async (req) => {
-    const db = await openDb();
-    const srcId = await db.get<{
-        id: string;
-    }>(
-        SQL`select id from seen where id = '${req.query.url}'`
-    );
-    if (srcId) {
-        Response.temporaryRedirect(
-            `<meta http-equiv='refresh' content='0; url='${srcId}'>`,
-            {
-                location: `${srcId}`
-            }
+        const db = await openDb();
+        const srcId = await db.get<{
+            id: string;
+        }>(
+            SQL`select id from seen where id = '${req.query.url}'`
         );
+        if (srcId) {
+            Response.temporaryRedirect(
+                `<meta http-equiv='refresh' content='0; url='${srcId}'>`,
+                {
+                    location: `${srcId}`
+                }
+            );
+        }
+        else {
+            Response.temporaryRedirect(
+                "<meta http-equiv='refresh' content='0; url='https://github.com/ntsklab/mastofeeder'>",
+                {
+                    location: "https://github.com/ntsklab/mastofeeder"
+                }
+            );
+        }
     }
-    else {
-        Response.temporaryRedirect(
-            "<meta http-equiv='refresh' content='0; url='https://github.com/ntsklab/mastofeeder'>",
-            {
-                location: "https://github.com/ntsklab/mastofeeder"
-            }
-        );
-    }
-
   );

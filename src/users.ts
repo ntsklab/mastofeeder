@@ -48,7 +48,7 @@ export const usersRoute: Route<
         "https://w3id.org/security/v1",
       ],
       id,
-      type: "Person",
+      type: "Application",
       preferredUsername: hostname,
       name: info.value.name,
       inbox: `${id}/inbox`,

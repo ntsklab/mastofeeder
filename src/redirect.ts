@@ -4,13 +4,14 @@ import SQL from "sql-template-strings";
 
 export const redirectRoute: Route<Response.TemporaryRedirect> = route
   .get("/redirect")
-  .handler(async (req) => {
+  .handler((req) =>
     Response.temporaryRedirect(
       `<meta http-equiv='refresh' content='0; url='${req.query.url}'>`,
       {
-        location: `${req.query.url}`
+        location: `${req.query.url}`,
       }
-    );
+    )
+  );
     /*
     const db = await openDb();
     const srcId = await db.get<{ id: string }>(

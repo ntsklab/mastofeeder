@@ -10,7 +10,7 @@ type ActivityStreamUserResponse = {
     "https://w3id.org/security/v1"
   ];
   id: string;
-  type: "Person";
+  type: "Application";
   following?: string;
   followers?: string;
   inbox?: string;
@@ -52,7 +52,8 @@ export const usersRoute: Route<
       preferredUsername: hostname,
       name: info.value.name,
       inbox: `${id}/inbox`,
-      summary: `This is a proxied RSS feed from ${info.value.rssUrl}`,
+      outbox: `${id}/outbox`,
+      summary: `RSSプロキシアカウントです。Source : ${info.value.rssUrl}\nカスタマイズしたMastofeederを使用しています。 https://github.com/ntsklab/mastofeeder`,
       icon: info.value.icon
         ? {
             type: "Image",

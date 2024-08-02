@@ -33,5 +33,5 @@ export const redirectRoute: Route<Response.TemporaryRedirect> = route
         }
       );
     }
-    */
   });
+*/

@@ -6,9 +6,9 @@ export const redirectRoute: Route<Response.TemporaryRedirect> = route
   .get("/redirect")
   .handler((req) =>
     Response.temporaryRedirect(
-      `<meta http-equiv='refresh' content='0; url='${req.query.url}'>`,
+      `<meta http-equiv='refresh' content='0; url='https://oyasumi.dev'>`,
       {
-        location: `${req.query.url}`,
+        location: `https://oyasumi.dev`,
       }
     )
   );

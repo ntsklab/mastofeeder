@@ -98,7 +98,7 @@ const createNoteMessage = (
       attributedTo: actor,
       content,
       sensitive: false,
-      to: followedHostname,
+      to: `https://${serverHostname}/inbox`,
       attachment: images.map((image) => ({
         type: "Image",
         mediaType: `image/${image.type}`,

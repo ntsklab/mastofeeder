@@ -85,14 +85,14 @@ const createNoteMessage = (
   )}`;
   return {
     "@context": "https://www.w3.org/ns/activitystreams",
-    id: idstr,
-    //id: `https://${serverHostname}/${uuid()}`,
+    //id: idstr,
+    id: `https://${serverHostname}/redirect?id=${idstr}`,
     type: "Create",
     actor,
     published: new Date().toISOString(),
     object: {
-      id: idstr,
-      //id: `https://${serverHostname}/${uuid()}`,
+      //id: idstr,
+      id: `https://${serverHostname}/redirect?id=${idstr}`,
       type: "Note",
       published: new Date().toISOString(),
       attributedTo: actor,

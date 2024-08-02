@@ -25,4 +25,4 @@ app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-forever(1000 * 60 * 60, fetchAndSendAllFeeds);
+forever(1000 * 60 * 10, fetchAndSendAllFeeds);

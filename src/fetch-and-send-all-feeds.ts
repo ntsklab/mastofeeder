@@ -94,6 +94,7 @@ const createNoteMessage = (
       attributedTo: actor,
       content,
       sensitive: false,
+      boostable: false,
       to: "https://www.w3.org/ns/activitystreams#Public",
       attachment: images.map((image) => ({
         type: "Image",

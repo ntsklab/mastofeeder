@@ -86,19 +86,19 @@ const createNoteMessage = (
   return {
     "@context": "https://www.w3.org/ns/activitystreams",
     //id: idstr,
-    id: `https://${serverHostname}/${uuid()}`,
+    id: `https://${serverHostname}/${uuid()}/${idstr}`,
     type: "Create",
     actor,
     published: new Date().toISOString(),
     object: {
       //id: idstr,
-      id: `https://${serverHostname}/${uuid()}`,
+      id: `https://${serverHostname}/${uuid()}/${idstr}`,
       type: "Note",
       published: new Date().toISOString(),
       attributedTo: actor,
       content,
       sensitive: false,
-      to: `https://${serverHostname}/inbox`,
+      to: `https://${serverHostname}/inbox`, // TODO: ちゃんとする
       attachment: images.map((image) => ({
         type: "Image",
         mediaType: `image/${image.type}`,

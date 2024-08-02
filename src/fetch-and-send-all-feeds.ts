@@ -68,6 +68,7 @@ const sendNotification = async (
   const message = createNoteMessage(
     followedHostname,
     rssItemToNoteHtml(item),
+    rssItemToNoteId(item),
     getDescriptionImages(item.description ?? "")
   );
   await send(message, follower);
@@ -76,6 +77,7 @@ const sendNotification = async (
 const createNoteMessage = (
   followedHostname: string,
   content: string,
+  idstr: string,
   images: Image[]
 ) => {
   const actor = `https://${serverHostname}/${encodeURIComponent(
@@ -83,19 +85,20 @@ const createNoteMessage = (
   )}`;
   return {
     "@context": "https://www.w3.org/ns/activitystreams",
+    //id: idstr,
     id: `https://${serverHostname}/${uuid()}`,
     type: "Create",
     actor,
     published: new Date().toISOString(),
     object: {
+      //id: idstr,
       id: `https://${serverHostname}/${uuid()}`,
       type: "Note",
       published: new Date().toISOString(),
       attributedTo: actor,
       content,
       sensitive: false,
-      boostable: false,
-      to: "https://www.w3.org/ns/activitystreams#Public",
+      to: followedHostname,
       attachment: images.map((image) => ({
         type: "Image",
         mediaType: `image/${image.type}`,
@@ -107,11 +110,16 @@ const createNoteMessage = (
 };
 
 const rssItemToNoteHtml = (item: RssItem) => {
-  const title = item.title ? `<h1>${item.title}</h1>` : "";
+  const title = item.title ? `<h2>${item.title}</h2>` : "";
   const descStripped = item.description?.replace(/<img[^>]*>/g, "");
   const description = descStripped ? `<p>${descStripped}</p>` : "";
   const link = item.link ? `<a href="${item.link}">${item.link}</a>` : "";
   return `${title}\n\n${description}\n\n${link}`;
+};
+
+const rssItemToNoteId = (item: RssItem) => {
+  const link = item.link ? `<a href="${item.link}">${item.link}</a>` : "";
+  return `${link}`;
 };
 
 type Image = {

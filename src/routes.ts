@@ -4,13 +4,15 @@ import { usersRoute } from "./users";
 import { webfingerRoute } from "./webfinger";
 import { redirectToGithubRoute } from "./redirect-to-github-route";
 import { redirectRoute } from "./redirect";
-import {nodeinfoRoute} from "./nodeinfo"
+import { nodeinfoRoute } from "./nodeinfo"
+import { wellknownNodeinfoRoute } from "./nodeinfo";
 
 export const routes = router(
   redirectToGithubRoute,
   redirectRoute,
   nodeinfoRoute,
   webfingerRoute,
+  wellknownNodeinfoRoute,
   usersRoute,
   followUnfollowRoute
 ).handler();

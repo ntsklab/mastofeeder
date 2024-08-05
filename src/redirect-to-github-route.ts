@@ -4,9 +4,9 @@ export const redirectToGithubRoute: Route<Response.TemporaryRedirect> = route
   .get("/")
   .handler(() =>
     Response.temporaryRedirect(
-      "<meta http-equiv='refresh' content='0; url='https://github.com/jehna/mastofeeder'>",
+      "<meta http-equiv='refresh' content='0; url='https://github.com/ntsklab/mastofeeder'>",
       {
-        location: "https://github.com/jehna/mastofeeder",
+        location: "https://github.com/ntsklab/mastofeeder",
       }
     )
   );

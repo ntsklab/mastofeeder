@@ -12,7 +12,15 @@ app.use(bodyParser.json({ type: "application/activity+json" }));
 app.use(routes);
 
 app.get("/", (req, res) => {
-  res.redirect("https://github.com/jehna/mastofeeder");
+  res.redirect("https://github.com/ntsklab/mastofeeder");
+});
+
+app.get("/.well-known/host-meta", (req, res) => {
+  res.set('Content-Type', 'text/xml');
+  res.send(`<?xml version="1.0"?>
+<XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0">
+<Link rel="lrdd" type="application/xrd+xml" template="https://mf.oyasumi.dev/.well-known/webfinger?resource={uri}" />
+</XRD>`);
 });
 
 app.use("*", (req, res) => {

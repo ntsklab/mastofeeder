@@ -111,7 +111,10 @@ const createNoteMessage = (
 
 const rssItemToNoteHtml = (item: RssItem) => {
   const title = item.title ? `<h2>${item.title}</h2>` : "";
-  const descStripped = item.description?.replace(/<img[^>]*>/g, "");
+  const urlpattern = /https?:\/\/[\w/:%#\$&\?\(\)~\.=\+\-]+/g
+  let descStripped = item.description?.replace("/<img[^>]*>/g", "");
+  const matchinfo = (descStripped||"").match(urlpattern);
+  matchinfo?.forEach((minfo)=>{descStripped = descStripped?.replace(`${minfo}`, `<a href="${minfo}">${minfo}</a>`);});
   const description = descStripped ? `<p>${descStripped}</p>` : "";
   const link = item.link ? `<a href="${item.link}">${item.link}</a>` : "";
   return `${title}\n\n${description}\n\n${link}`;

@@ -4,3 +4,4 @@ build
 database.db
 node_modules
 tlds.dat
+.node-version

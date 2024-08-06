@@ -10,7 +10,7 @@ type ActivityStreamUserResponse = {
     "https://w3id.org/security/v1"
   ];
   id: string;
-  type: "Application";
+  type: string;
   following?: string;
   followers?: string;
   inbox?: string;
@@ -20,7 +20,7 @@ type ActivityStreamUserResponse = {
   summary?: string;
   url?: string;
   icon?: {
-    type: "Image";
+    type: string;
     mediaType: string;
     url: string;
   };
@@ -48,7 +48,7 @@ export const usersRoute: Route<
         "https://w3id.org/security/v1",
       ],
       id,
-      type: "Application",
+      type: "Service",
       preferredUsername: hostname,
       name: info.value.name,
       inbox: `${id}/inbox`,

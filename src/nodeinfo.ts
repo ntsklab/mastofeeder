@@ -34,8 +34,8 @@ export const nodeinfoRoute: Route<Response.Ok<nodeinfoResponse>> = route
       openRegistration: false,
       protocols: ["activitypub"],
       software: {
-        name: "NT-Mastofeeder",
-        version: "0.1"
+        name: "nt-mastofeeder",
+        version: "0.2"
       },
       usage: {
         users: {
@@ -44,7 +44,7 @@ export const nodeinfoRoute: Route<Response.Ok<nodeinfoResponse>> = route
       },
       version: "2.1",
       metadata: {
-        nodeName: "NT-Mastofeeder",
+        nodeName: "nt-Mastofeeder",
         nodeDescription: "Mastofeeder改造版\n\n自分用です"
       }
     });

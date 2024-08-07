@@ -84,7 +84,7 @@ const createNoteMessage = (
     followedHostname
   )}`;
   return {
-    "@context": "https://www.w3.org/ns/activitystreams",
+    "@context": "https://www.w3.org/ns/activitystreams#Create",
     //id: idstr,
     id: `https://${serverHostname}/redirect?id=${idstr}`,
     type: "Create",

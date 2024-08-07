@@ -2,13 +2,17 @@ import { ActivityPubMessage } from "./ActivityPubMessage";
 import crypto from "crypto";
 import { PRIVATE_KEY } from "./env";
 import fetch from "node-fetch";
+import { actorFetchAsync } from "./fetch-actor-info"
 
 export const send = async <Message extends ActivityPubMessage<string, any>>(
   message: Message,
   toActor: string
 ) => {
-  const inbox = toActor + "/inbox"; // TODO: Fetch inbox URL from actor's server
-  const { hostname, pathname } = new URL(inbox);
+  let actorInbox = await actorFetchAsync(toActor);
+  if (actorInbox.inbox.length == 0) {
+    throw new Error("actorFetchError in send function");
+  }
+  const { hostname, pathname } = new URL(actorInbox.inbox);
 
   const digestHash = crypto
     .createHash("sha256")
@@ -24,7 +28,7 @@ export const send = async <Message extends ActivityPubMessage<string, any>>(
   const keyId = `${message.actor}/#main-key`;
   let header = `keyId="${keyId}",headers="(request-target) host date digest",algorithm="rsa-sha256",signature="${signature_b64}"`;
 
-  const req = await fetch(inbox, {
+  const req = await fetch(actorInbox.inbox, {
     headers: {
       Date: d.toUTCString(),
       Digest: `SHA-256=${digestHash}`,
@@ -36,8 +40,7 @@ export const send = async <Message extends ActivityPubMessage<string, any>>(
 
   if (!req.ok) {
     throw new Error(
-      `Failed to send message to ${inbox}: ${
-        req.statusText
+      `Failed to send message to ${actorInbox.inbox}: ${req.statusText
       } / ${await req.text()}`
     );
   }

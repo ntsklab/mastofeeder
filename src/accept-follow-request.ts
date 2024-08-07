@@ -45,14 +45,14 @@ const acceptActivity = (
   followedHostname: string,
   activityToAccept: ActivityPubMessage<any, any>
 ) =>
-  ({
-    "@context": "https://www.w3.org/ns/activitystreams",
-    //id: `https://${serverHostname}/${uuid()}`,
-    id: activityToAccept.id,
-    type: "Accept",
-    actor: `https://${serverHostname}/${encodeURIComponent(followedHostname)}`,
-    object: activityToAccept,
-  } as const);
+({
+  "@context": "https://www.w3.org/ns/activitystreams",
+  //id: `https://${serverHostname}/${uuid()}`,
+  id: activityToAccept.id,
+  type: "Accept",
+  actor: `https://${serverHostname}/${encodeURIComponent(followedHostname)}`,
+  object: activityToAccept,
+} as const);
 
 export const followUnfollowRoute: Route<
   Response.Ok | Response.BadRequest<string>
@@ -61,10 +61,12 @@ export const followUnfollowRoute: Route<
   .post("/:hostname(url)/inbox")
   .use(Parser.body(followOrUnfollowRequest))
   .handler(async (req) => {
-    if (req.body.type === "Follow")
+    if (req.body.type === "Follow") {
       return handleFollowRequest(req.body, req.routeParams.hostname);
-    if (req.body.type === "Undo")
+    }
+    if (req.body.type === "Undo") {
       return handleUnfollowRequest(req.body, req.routeParams.hostname);
+    }
 
     throw new Error("Unreachable");
   });
@@ -74,8 +76,10 @@ const handleFollowRequest = async (
   followHostname: string
 ) => {
   const { actor: follower, object } = body;
-
   const id = `https://${serverHostname}/${encodeURIComponent(followHostname)}`;
+
+  console.log(`handleFollowRequest -- follower: ${follower} followHostname: ${followHostname} object: ${object}`);
+  
   if (object !== id)
     return Response.badRequest("Object does not match username");
 

@@ -131,6 +131,7 @@ const informFollower = async (
   follower: string,
   request: FollowRequest
 ) => {
+  console.log(`informFollower -- followedHostname: ${followedHostname} actor: ${request.actor} id: ${request.id}`)
   const message = acceptActivity(followedHostname, request);
   await send(message, follower);
 };

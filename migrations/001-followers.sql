@@ -9,7 +9,7 @@ CREATE TABLE followers (
   CONSTRAINT followers_hostname_follower_key UNIQUE (hostname, follower)
 );
 
-CREATE UNIQUE INDEX followers_hostname_key ON followers (hostname);
+CREATE UNIQUE INDEX followers_hostname_key ON followers (hostname, follower);
 
 --------------------------------------------------------------------------------
 -- Down

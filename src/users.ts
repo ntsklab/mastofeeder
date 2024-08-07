@@ -57,6 +57,7 @@ export const usersRoute: Route<
       name: info.value.name,
       inbox: `${id}/inbox`,
       outbox: `${id}/outbox`,
+      discoverable: true,
       summary: `RSSプロキシアカウントです。Source : <a href="${info.value.rssUrl}">RSS</a><br /><br />カスタマイズしたMastofeederを使用しています。 <a href="https://github.com/ntsklab/mastofeeder">Github</a>`,
       icon: info.value.icon
         ? {

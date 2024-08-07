@@ -47,8 +47,8 @@ const acceptActivity = (
 ) =>
 ({
   "@context": "https://www.w3.org/ns/activitystreams",
-  //id: `https://${serverHostname}/${uuid()}`,
-  id: activityToAccept.id,
+  id: `https://${serverHostname}/${uuid()}`,
+  //id: activityToAccept.id,
   type: "Accept",
   actor: `https://${serverHostname}/${encodeURIComponent(followedHostname)}`,
   object: activityToAccept,

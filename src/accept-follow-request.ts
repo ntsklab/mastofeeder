@@ -10,13 +10,17 @@ import { send } from "./send";
 import { ActivityPubMessage } from "./ActivityPubMessage";
 import { serverHostname } from "./env";
 
-const activityStreamsContext = t.union([
-  t.literal("https://www.w3.org/ns/activitystreams"),
-  t.UnknownArray
+const activityStreamsContextFollow = t.union([
+  t.literal("https://www.w3.org/ns/activitystreams#Follow"),
+  t.any
+]);
+const activityStreamsContextUndo = t.union([
+  t.literal("https://www.w3.org/ns/activitystreams#Undo"),
+  t.any
 ]);
 
 const followRequest = t.type({
-  "@context": activityStreamsContext,
+  "@context": activityStreamsContextFollow,
   id: t.string,
   type: t.literal("Follow"),
   actor: t.string, // Follower
@@ -25,7 +29,7 @@ const followRequest = t.type({
 type FollowRequest = t.TypeOf<typeof followRequest>;
 
 const unfollowRequest = t.type({
-  "@context": activityStreamsContext,
+  "@context": activityStreamsContextUndo,
   id: t.string,
   type: t.literal("Undo"),
   actor: t.string, // Follower
@@ -46,9 +50,9 @@ const acceptActivity = (
   activityToAccept: ActivityPubMessage<any, any>
 ) =>
 ({
-  "@context": "https://www.w3.org/ns/activitystreams",
-  //id: `https://${serverHostname}/${uuid()}`,
-  id: activityToAccept.id,
+  "@context": "https://www.w3.org/ns/activitystreams#Accept",
+  id: `https://${serverHostname}/${uuid()}`,
+  //id: activityToAccept.id,
   type: "Accept",
   actor: `https://${serverHostname}/${encodeURIComponent(followedHostname)}`,
   object: activityToAccept,
@@ -79,7 +83,7 @@ const handleFollowRequest = async (
   const id = `https://${serverHostname}/${encodeURIComponent(followHostname)}`;
 
   console.log(`handleFollowRequest -- follower: ${follower} followHostname: ${followHostname} object: ${object}`);
-  
+
   if (object !== id)
     return Response.badRequest("Object does not match username");
 
@@ -136,7 +140,7 @@ const informFollower = async (
   follower: string,
   request: FollowRequest
 ) => {
-  console.log(`informFollower -- followedHostname: ${followedHostname} follower: ${follower} request.actor: ${request.actor} request.id: ${request.id} request.object: ${request.object}`)
+  console.log(`informFollower -- followedHostname: ${followedHostname} follower: ${follower} request.actor: ${request.actor} request.id: ${request.id} request.object: ${request.object}`);
   const message = acceptActivity(followedHostname, request);
   await send(message, follower);
 };

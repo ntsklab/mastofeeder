@@ -41,7 +41,7 @@ export const send = async <Message extends ActivityPubMessage<string, any>>(
 
   if (!req.ok) {
     throw new Error(
-      `Failed to send message to ${actorInbox.inbox}: ${req.status} ${req.statusText} / sent message: ${message}`
+      `Failed to send message to ${actorInbox.inbox}: ${req.status} ${req.statusText} / sent type: ${message.type} actor: ${message.actor} id: ${message.id} object: ${message.object}`
     );
   }
 };

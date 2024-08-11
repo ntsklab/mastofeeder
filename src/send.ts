@@ -36,7 +36,7 @@ export const send = async <Message extends ActivityPubMessage<string, any>>(
       Accept: "application/activity+json"
     },
     method: "POST",
-    body: JSON.stringify(message),
+    body: Buffer.from(JSON.stringify(message)),
   });
 
   if (!req.ok) {

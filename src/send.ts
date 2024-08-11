@@ -27,7 +27,7 @@ export const send = async <Message extends ActivityPubMessage<string, any>>(
   const signature_b64 = signature.toString("base64");
   const keyId = `${message.actor}/#main-key`;
   let header = `keyId="${keyId}",headers="(request-target) host date digest",algorithm="rsa-sha256",signature="${signature_b64}"`;
-  console.log("send : start fetch");
+  console.log(`send : start fetch ${actorInbox.inbox}`);
   const req = await fetch(actorInbox.inbox, {
     headers: {
       Date: d.toUTCString(),

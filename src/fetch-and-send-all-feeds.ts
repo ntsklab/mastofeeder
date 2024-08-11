@@ -86,13 +86,13 @@ const createNoteMessage = (
   return {
     "@context": "https://www.w3.org/ns/activitystreams",
     //id: idstr,
-    id: `https://${serverHostname}/redirect/${idstr}`,
+    id: `https://${serverHostname}/redirect/id/${uuid()}`,
     type: "Create",
     actor,
     published: new Date().toISOString(),
     object: {
       //id: idstr,
-      id: `https://${serverHostname}/redirect/${idstr}`,
+      id: `https://${serverHostname}/redirect/note/${idstr}`,
       type: "Note",
       published: new Date().toISOString(),
       attributedTo: actor,
@@ -121,7 +121,7 @@ const rssItemToNoteHtml = (item: RssItem) => {
 };
 
 const rssItemToNoteId = (item: RssItem) => {
-  return `${item.link}`;
+  return `${item.link}`.split("/")[2];
 };
 
 type Image = {

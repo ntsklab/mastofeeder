@@ -27,7 +27,7 @@ export const send = async <Message extends ActivityPubMessage<string, any>>(
   const signature_b64 = signature.toString("base64");
   const keyId = `${message.actor}/#main-key`;
   let header = `keyId="${keyId}",headers="(request-target) host date digest",algorithm="rsa-sha256",signature="${signature_b64}"`;
-
+  console.log("send : start fetch");
   const req = await fetch(actorInbox.inbox, {
     headers: {
       Date: d.toUTCString(),
@@ -38,7 +38,7 @@ export const send = async <Message extends ActivityPubMessage<string, any>>(
     method: "POST",
     body: Buffer.from(JSON.stringify(message)),
   });
-
+  console.log("send : end fetch");
   if (!req.ok) {
     throw new Error(
       `Failed to send message to ${actorInbox.inbox}: ${req.status} ${req.statusText} / sent type: ${message.type} actor: ${message.actor} id: ${message.id} messageContext: ${message["@context"].toString()}`

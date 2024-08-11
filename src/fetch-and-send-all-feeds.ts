@@ -92,7 +92,7 @@ const createNoteMessage = (
     published: new Date().toISOString(),
     object: {
       //id: idstr,
-      id: `https://${serverHostname}/redirect?id=${idstr}`,
+      id: `https://${serverHostname}/redirect/${idstr}`,
       type: "Note",
       published: new Date().toISOString(),
       attributedTo: actor,

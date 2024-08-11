@@ -46,7 +46,9 @@ const acceptActivity = (
   activityToAccept: ActivityPubMessage<any, any>
 ) =>
 ({
-  "@context": "https://www.w3.org/ns/activitystreams",
+  "@context": [
+        "https://www.w3.org/ns/activitystreams#Accept"
+      ] as string[],
   id: `https://${serverHostname}/${uuid()}`,
   //id: activityToAccept.id,
   type: "Accept",

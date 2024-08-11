@@ -89,10 +89,10 @@ const handleFollowRequest = async (
 
   try {
     console.log("start handleFollowRequest");
+    console.log("call acceptFollowRequest");
     await acceptFollowRequest(followHostname, follower);
-    console.log("acceptFollowRequest");
+    console.log("call informFollower");
     await informFollower(followHostname, follower, body);
-    console.log("informFollower");
     return Response.ok();
   } catch (e) {
     console.error(e);

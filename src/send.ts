@@ -33,7 +33,8 @@ export const send = async <Message extends ActivityPubMessage<string, any>>(
       Date: d.toUTCString(),
       Digest: `SHA-256=${digestHash}`,
       Signature: header,
-      Accept: "application/activity+json, application/json"
+      Accept: "application/activity+json, application/json",
+      "Content-Type": "application/activity+json"
     },
     method: "POST",
     body: Buffer.from(JSON.stringify(message)),

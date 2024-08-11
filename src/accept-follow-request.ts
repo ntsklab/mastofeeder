@@ -88,8 +88,11 @@ const handleFollowRequest = async (
     return Response.badRequest("Domain does not have a feed");
 
   try {
+    console.log("start handleFollowRequest");
     await acceptFollowRequest(followHostname, follower);
+    console.log("acceptFollowRequest");
     await informFollower(followHostname, follower, body);
+    console.log("informFollower");
     return Response.ok();
   } catch (e) {
     console.error(e);

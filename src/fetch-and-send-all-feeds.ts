@@ -121,7 +121,7 @@ const rssItemToNoteHtml = (item: RssItem) => {
 };
 
 const rssItemToNoteId = (item: RssItem) => {
-  return `${item.link}`.split("/")[2];
+  return `${item.link}`.replace(new RegExp("^https?://"),"");
 };
 
 type Image = {

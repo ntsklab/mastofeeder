@@ -84,12 +84,14 @@ const createNoteMessage = (
     followedHostname
   )}`;
   return {
-    "@context": "https://www.w3.org/ns/activitystreams",
+    "@context": ["https://www.w3.org/ns/activitystreams","https://w3id.org/security/v1"],
     //id: idstr,
-    id: `https://${serverHostname}/redirect/id/${uuid()}`,
+    id: `${actor}/id/${uuid()}`,
     type: "Create",
     actor,
     published: new Date().toISOString(),
+    to: `${actor}/followers`,
+    cc: [],
     object: {
       //id: idstr,
       id: `https://${serverHostname}/redirect/note/${idstr}`,
@@ -98,7 +100,9 @@ const createNoteMessage = (
       attributedTo: actor,
       content,
       sensitive: false,
-      to: `https://${serverHostname}/inbox`, // TODO: ちゃんとする
+      to: `${actor}/followers`, // TODO return followers collection??
+      cc: [],
+      inReplyTo: null,
       attachment: images.map((image) => ({
         type: "Image",
         mediaType: `image/${image.type}`,

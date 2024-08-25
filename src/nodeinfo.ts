@@ -44,7 +44,7 @@ export const nodeinfoRoute: Route<Response.Ok<nodeinfoResponse>> = route
       },
       version: "2.1",
       metadata: {
-        nodeName: "nt-Mastofeeder",
+        nodeName: "NT-Mastofeeder",
         nodeDescription: "Mastofeeder改造版\n\n自分用です"
       }
     });
